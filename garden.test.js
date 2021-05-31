@@ -85,14 +85,14 @@ describe("getRevenueForCrop", () => {
         sale_price: 2,
     };
     const data = {
-        crop: apple,
+        crop: apple,  
         num_crops: 5
     }
         expect(getRevenueForCrop(data)).toBe(130);
     });
 });
 
-// TEST: 
+// TEST: calculate profit for a crop
 
 describe("getProfitForCrop", () => {
     test("Get profit for crop", () => {
