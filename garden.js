@@ -28,6 +28,17 @@ const getTotalProfit = ({ crops }) => {
     return profitAllCrops.reduce((acc, val) => acc + val)
 };
 
+// Calculate the Yield(with envirement factors)
+
+const getYieldForPlantMulti = (crop, environment) => {
+    const sunPercentage = "sun" in crop.factors ? crop.factors.sun[environment.sun] || 0 : 0;
+    const windPercentage = "wind" in crop.factors ? crop.factors.wind[environment.wind] || 0 : 0;
+    const soilPercentage = "soil" in crop.factors ? crop.factors.soil[environment.soil] || 0 : 0;
+    const percentages = [sunPercentage, windPercentage, soilPercentage];
+    multiplyFactors = percentages.map(percentage => percentage / 100 + 1);
+    return Math.floor(multiplyFactors.reduce((acc, curr) => acc * curr, getYieldForPlant(crop)))
+};
+
 module.exports = {   
     getYieldForPlant,
     getYieldForCrop,
@@ -36,4 +47,5 @@ module.exports = {
     getRevenueForCrop,
     getProfitForCrop,
     getTotalProfit,
+    getYieldForPlantMulti,
 };

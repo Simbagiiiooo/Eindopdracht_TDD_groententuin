@@ -6,6 +6,7 @@ const {
     getRevenueForCrop,
     getProfitForCrop,
     getTotalProfit,
+    getYieldForPlantMulti,
 } = require("./garden.js");
 
 // Given tests
@@ -146,5 +147,102 @@ describe("getTotalProfit", () => {
         { crop: avocado, num_crops: 10 }
     ];
         expect(getTotalProfit({ crops })).toBe(1134);
+    });
+});
+
+// Calculate the Yield of one crop and envirement factors
+
+describe("getYieldForPlantMulti", () => {
+    test("Get yield for one crop taking with environment factors", () => {
+    const corn = {
+        name: "corn",
+        yield: 30,
+        factors: {
+            sun: {
+                low: -50,
+                medium: 0,
+                high: 50,
+            },
+        },
+    };
+    const environment_factors = {
+        sun: "low",
+    };
+        expect(getYieldForPlantMulti(corn, environment_factors)).toBe(15)
+    });
+});
+
+// Calculate the Yield of multiple crops and envirement factors
+
+
+describe("getYieldForPlantMulti", () => {
+    const corn = {
+        name: "corn",
+        yield: 30,
+        factors: {
+            sun: {
+                low: -50,
+                medium: 0,
+                high: 50,
+            },
+            wind: {
+                low: 0,
+                medium: -20,
+                high: -60,
+            },
+            soil: {
+                clay: 20,
+                sandy_clay: 0,
+                sand: -20
+            }
+        }
+    };
+    const avocado = {
+        name: "avocado",
+        cost: 4,
+        yield: 8,
+        sale_price: 12,
+        factors: {
+            sun: {
+                low: -80,
+                medium: 0,
+                high: 40,
+            },
+
+            soil: {
+                clay: -40,
+                sandy_clay: 10,
+                sand: 20
+            }
+        }
+    };
+
+    const apple = {
+        name: "apple",
+        cost: 3,
+        yield: 13,
+        sale_price: 2,
+        factors: {
+            sun: {
+                high: 20,
+                medium: -5,
+                low: -15
+            }
+        }
+    };
+
+    const environment_factors = {
+        sun: "low",
+        wind: "high",
+        soil: "sandy_clay"
+    };
+    test("Get yield for plant with environment factors into account", () => {
+        expect(getYieldForPlantMulti(corn, environment_factors)).toBe(6)
+    });
+    test("Get yield for plant with environment factors into account", () => {
+        expect(getYieldForPlantMulti(avocado, environment_factors)).toBe(1)
+    });
+    test("Get yield for plant with environment factors into account", () => {
+        expect(getYieldForPlantMulti(apple, environment_factors)).toBe(11)
     });
 });
