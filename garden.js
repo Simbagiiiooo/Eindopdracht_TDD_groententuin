@@ -39,6 +39,10 @@ const getYieldForPlantMulti = (crop, environment) => {
     return Math.floor(multiplyFactors.reduce((acc, curr) => acc * curr, getYieldForPlant(crop)))
 };
 
+// Calculate the Yield(with envirement factors)
+
+const getYieldForCropMulti = (data, environment) => getYieldForPlantMulti(data.crop, environment) * data.num_crops;
+
 module.exports = {   
     getYieldForPlant,
     getYieldForCrop,
@@ -48,4 +52,5 @@ module.exports = {
     getProfitForCrop,
     getTotalProfit,
     getYieldForPlantMulti,
+    getYieldForCropMulti,
 };

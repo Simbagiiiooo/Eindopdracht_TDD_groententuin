@@ -7,6 +7,7 @@ const {
     getProfitForCrop,
     getTotalProfit,
     getYieldForPlantMulti,
+    getYieldForCropMulti,
 } = require("./garden.js");
 
 // Given tests
@@ -150,7 +151,7 @@ describe("getTotalProfit", () => {
     });
 });
 
-// Calculate the Yield of one crop and envirement factors
+// TEST: Calculate the Yield of one crop with envirement factors
 
 describe("getYieldForPlantMulti", () => {
     test("Get yield for one crop taking with environment factors", () => {
@@ -172,7 +173,7 @@ describe("getYieldForPlantMulti", () => {
     });
 });
 
-// Calculate the Yield of multiple crops and envirement factors
+// TEST: Calculate the Yield of multiple crops with envirement factors
 
 
 describe("getYieldForPlantMulti", () => {
@@ -208,7 +209,6 @@ describe("getYieldForPlantMulti", () => {
                 medium: 0,
                 high: 40,
             },
-
             soil: {
                 clay: -40,
                 sandy_clay: 10,
@@ -244,5 +244,39 @@ describe("getYieldForPlantMulti", () => {
     });
     test("Get yield for plant with environment factors into account", () => {
         expect(getYieldForPlantMulti(apple, environment_factors)).toBe(11)
+    });
+});
+
+// TEST: Calculate the Yield for crops(with envirement factors)
+
+describe("getYieldForCropMulti", () => {
+ test("Get yield for crop with environment factors", () => {
+    const avocado = {
+        name: "avocado",
+        cost: 4,
+        yield: 8,
+        sale_price: 12,
+        factors: {
+            sun: {
+                low: -80,
+                medium: 0,
+                high: 40,
+            },
+            soil: {
+                clay: -40,
+                sandy_clay: 10,
+                sand: 20
+            }
+        }
+    };
+
+    const environment_factors = {
+        sun: "high",
+        wind: "medium",
+        soil: "sand"
+    };
+
+    const data = { crop: avocado, num_crops: 14 }
+        expect(getYieldForCropMulti(data, environment_factors)).toBe(182)
     });
 });
