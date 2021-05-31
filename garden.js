@@ -17,10 +17,15 @@ const getCostsForCrop = data => data.crop.cost * data.num_crops;
 
 const getRevenueForCrop = data => getYieldForCrop(data) * data.crop.sale_price;
 
+// 3:  calculate the profit for a crop(no envirement factors)
+
+const getProfitForCrop = (data) => getRevenueForCrop(data) - getCostsForCrop(data);
+
 module.exports = {
     getYieldForPlant,
     getYieldForCrop,
     getTotalYield,
     getCostsForCrop,
     getRevenueForCrop,
+    getProfitForCrop,
 };

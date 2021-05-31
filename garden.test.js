@@ -4,6 +4,7 @@ const {
     getTotalYield,
     getCostsForCrop,
     getRevenueForCrop,
+    getProfitForCrop,
 } = require("./garden.js");
 
 // Given tests
@@ -88,5 +89,23 @@ describe("getRevenueForCrop", () => {
         num_crops: 5
     }
         expect(getRevenueForCrop(data)).toBe(130);
+    });
+});
+
+// TEST: 
+
+describe("getProfitForCrop", () => {
+    test("Get profit for crop", () => {
+    const avocado = {
+        name: "avocado",
+        cost: 4,
+        yield: 8,
+        sale_price: 12,
+    };
+    const data = {
+        crop: avocado,
+        num_crops: 10
+    }
+        expect(getProfitForCrop(data)).toBe(920);
     });
 });
