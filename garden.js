@@ -9,8 +9,13 @@ const getTotalYield = ({ crops }) => {
     return yieldFromAllCrops.reduce((acc, value) => acc + value)
 };
 
+// 1:calculate costs for a crop
+
+const getCostsForCrop = data => data.crop.cost * data.num_crops;
+
 module.exports = {
     getYieldForPlant,
     getYieldForCrop,
     getTotalYield,
+    getCostsForCrop,
 };

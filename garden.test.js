@@ -2,6 +2,7 @@ const {
     getYieldForPlant,
     getYieldForCrop,
     getTotalYield,
+    getCostsForCrop,
 } = require("./garden.js");
 
 // Given tests
@@ -15,7 +16,6 @@ describe("getYieldForPlant", () => {
         expect(getYieldForPlant(corn)).toBe(30);
     });
 });
-getRevenueForCrop,
 describe("getYieldForCrop", () => {
     test("Get yield for crop, simple", () => {
         const corn = {
@@ -54,5 +54,21 @@ describe("getTotalYield", () => {
         };
         const crops = [{ crop: corn, num_crops: 0 }];
         expect(getTotalYield({ crops })).toBe(0);
+    });
+});
+
+// TEST: calculate costs for a crop
+
+describe("getCostsForCrop", () => {
+    test("Get number of crops with multiple costs ", () => {
+    const corn = {
+        name: "corn",
+        cost: 1
+    };
+    const data = {
+        crop: corn,
+        num_crops: 23,
+    };
+        expect(getCostsForCrop(data)).toBe(23);
     });
 });
