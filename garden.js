@@ -9,17 +9,24 @@ const getTotalYield = ({ crops }) => {
     return yieldFromAllCrops.reduce((acc, value) => acc + value)
 };
 
-// 1:calculate costs for a crop
+// Calculate costs for a crop
 
 const getCostsForCrop = data => data.crop.cost * data.num_crops;
 
-// 2: calculate revenue for a crop(no envirement factors)
+// Calculate revenue for a crop(no envirement factors)
 
 const getRevenueForCrop = data => getYieldForCrop(data) * data.crop.sale_price;
 
-// 3:  calculate the profit for a crop(no envirement factors)
+// Calculate the profit for a crop(no envirement factors)
 
 const getProfitForCrop = (data) => getRevenueForCrop(data) - getCostsForCrop(data);
+
+// Calculate the profit for multiple crops(no envirement factors)
+
+const getTotalProfit = ({ crops }) => {
+    const profitAllCrops = crops.map(crop => getProfitForCrop(crop));
+    return profitAllCrops.reduce((acc, val) => acc + val)
+};
 
 module.exports = {   
     getYieldForPlant,
@@ -28,4 +35,5 @@ module.exports = {
     getCostsForCrop,
     getRevenueForCrop,
     getProfitForCrop,
+    getTotalProfit,
 };
