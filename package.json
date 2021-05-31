@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest"
-  },
+  },   
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Simbagiiiooo/Eindopdracht_TDD_groententuin.git"
