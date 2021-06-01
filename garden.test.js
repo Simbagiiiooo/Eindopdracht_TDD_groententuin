@@ -8,6 +8,7 @@ const {
     getTotalProfit,
     getYieldForPlantMulti,
     getYieldForCropMulti,
+    getProfitForCropMulti,
 } = require("./garden.js");
 
 // Given tests
@@ -250,7 +251,7 @@ describe("getYieldForPlantMulti", () => {
 // TEST: Calculate the Yield for crops(with envirement factors)
 
 describe("getYieldForCropMulti", () => {
- test("Get yield for crop with environment factors", () => {
+    test("Get yield for crop with environment factors", () => {
     const avocado = {
         name: "avocado",
         cost: 4,
@@ -278,5 +279,44 @@ describe("getYieldForCropMulti", () => {
 
     const data = { crop: avocado, num_crops: 14 }
         expect(getYieldForCropMulti(data, environment_factors)).toBe(182)
+    });
+});
+
+// TEST: Calculate the profit for crops(with envirement factors)
+
+describe("getProfitForCropMulti", () => {
+        test("Get profit for crop with environment factors", () => {
+    const corn = {
+        name: "corn",
+        cost: 1,
+        sale_price: 3,
+        yield: 30,
+        factors: {
+            sun: {
+                low: -50,
+                medium: 0,
+                high: 50,
+            },
+            wind: {
+                low: 0,
+                medium: -20,
+                high: -60,
+            },
+            soil: {
+                clay: 20,
+                sandy_clay: 0,
+                sand: -20
+            }
+        }
+    };
+
+    const environment_factors = {
+        sun: "high",
+        wind: "low",
+        soil: "clay"
+    };
+
+    const data = { crop: corn, num_crops: 10 }
+    expect(getProfitForCropMulti(data, environment_factors)).toBe(1610)
     });
 });
