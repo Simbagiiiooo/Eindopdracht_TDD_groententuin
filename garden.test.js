@@ -8,7 +8,8 @@ const {
     getTotalProfit,
     getYieldForPlantMulti,
     getYieldForCropMulti,
-    getProfitForCropMulti,
+    getTotalProfitForCropMulti,
+    getTotalProfitMulti,
 } = require("./garden.js");
 
 // Given tests
@@ -284,7 +285,7 @@ describe("getYieldForCropMulti", () => {
 
 // TEST: Calculate the profit for crops(with envirement factors)
 
-describe("getProfitForCropMulti", () => {
+describe("getTotalProfitForCropMulti", () => {
         test("Get profit for crop with environment factors", () => {
     const corn = {
         name: "corn",
@@ -317,6 +318,101 @@ describe("getProfitForCropMulti", () => {
     };
 
     const data = { crop: corn, num_crops: 10 }
-    expect(getProfitForCropMulti(data, environment_factors)).toBe(1610)
+    expect(getTotalProfitForCropMulti(data, environment_factors)).toBe(1610)
+    });
+});
+
+// TEST: Calculate the total profit(with envirement factors)
+
+describe("getTotalProfitForCropMulti", () => {
+    test("Get profit for crop with environment factors", () => {
+    const corn = {
+        name: "corn",
+        cost: 1,
+        sale_price: 3,
+        yield: 30,
+        factors: {
+            sun: {
+                low: -50,
+                medium: 0,
+                high: 50,
+            },
+            wind: {
+                low: 0,
+                medium: -20,
+                high: -60,
+            },
+            soil: {
+                clay: 20,
+                sandy_clay: 0,
+                sand: -20
+            }
+        }
+    };
+    const avocado = {
+        name: "avocado",
+        cost: 4,
+        yield: 8,
+        sale_price: 12,
+        factors: {
+            sun: {
+                low: -80,
+                medium: -30,
+                high: 20,
+            },
+
+            soil: {
+                clay: -40,
+                sandy_clay: 10,
+                sand: 20
+            }
+        }
+    };
+    const apple = {
+        name: "apple",
+        cost: 3,
+        yield: 13,
+        sale_price: 2,
+        factors: {
+            sun: {
+                high: 20,
+                medium: -5,
+                low: -15
+            }
+        }
+    };
+    const pumpkin = {
+        name: "pumpkin",
+        cost: 2,
+        yield: 4,
+        sale_price: 5,
+        factors: {
+            sun: {
+                high: 10,
+                medium: 5,
+                low: 0
+            },
+            soil: {
+                clay: 20,
+                sandy_clay: 5,
+                sand: -30
+            }
+        }
+    }
+
+
+    const environment_factors = {
+        sun: "medium",
+        wind: "high",
+        soil: "sandy_clay"
+    };
+
+    const crops =
+        [{ crop: corn, num_crops: 5 },
+        { crop: pumpkin, num_crops: 2 },
+        { crop: avocado, num_crops: 10 },
+        { crop: apple, num_crops: 6 }]
+
+        expect(getTotalProfitMulti({ crops }, environment_factors)).toBe(1017)
     });
 });

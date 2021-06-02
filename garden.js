@@ -45,7 +45,14 @@ const getYieldForCropMulti = (data, environment) => getYieldForPlantMulti(data.c
 
 // Calculate the profit for crop (with envirement factors)
 
-const getProfitForCropMulti = (data, environment) => getYieldForCropMulti(data, environment) * data.crop.sale_price - getCostsForCrop(data);
+const getTotalProfitForCropMulti = (data, environment) => getYieldForCropMulti(data, environment) * data.crop.sale_price - getCostsForCrop(data);
+
+// Calculate the total profit(with envirement factors)
+
+const getTotalProfitMulti = ({ crops }, environment) => {
+    const profitFromAllCrops = crops.map(crop => getTotalProfitForCropMulti(crop, environment));
+    return profitFromAllCrops.reduce((acc, val) => acc + val)
+};
 
 module.exports = {   
     getYieldForPlant,
@@ -57,5 +64,6 @@ module.exports = {
     getTotalProfit,
     getYieldForPlantMulti,
     getYieldForCropMulti,
-    getProfitForCropMulti,
+    getTotalProfitForCropMulti,
+    getTotalProfitMulti,
 };
